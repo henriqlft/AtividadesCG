@@ -100,11 +100,7 @@ int main()
 
 	// Gerando um buffer simples, com a geometria de um triângulo
 	GLuint VAO = setupGeometry();
-	GLuint VAO2 = setupGeometry();
 
-
-
-	glUseProgram(shader.ID);
 	glUseProgram(shader2.ID);
 
 	glm::mat4 model = glm::mat4(1); //matriz identidade;
@@ -116,7 +112,6 @@ int main()
 
 	glm::mat4 model2 = glm::mat4(1); //matriz identidade;
 	GLint modelLoc2 = glGetUniformLocation(shader2.ID, "model");
-	model2 = glm::rotate(model2, /*(GLfloat)glfwGetTime()*/glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	glUniformMatrix4fv(modelLoc2, 1, FALSE, glm::value_ptr(model2));
 
 
@@ -141,32 +136,23 @@ int main()
 		float angle = (GLfloat)glfwGetTime();
 
 		model = glm::mat4(1);
-		model2 = glm::mat4(1);
-		model2 = glm::scale(model2, glm::vec3(0.3));
-		model2 = glm::translate(model2, glm::vec3(-2.5f, 2.5f, 0.0f));
+
 		
 		if (rotateX)
 		{
-			model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			model2 = glm::rotate(model2, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			
+			model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));	
 		}
 		else if (rotateY)
 		{
 			model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-			model2 = glm::rotate(model2, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-
 		}
 		else if (rotateZ)
 		{
 			model = glm::rotate(model, angle, glm::vec3(0.0f, 0.0f, 1.0f));
-			model2 = glm::rotate(model2, angle, glm::vec3(0.0f, 0.0f, 1.0f));
-
 		}
 		model = glm::translate(model, glm::vec3(cubePosX, cubePosY, cubePosZ));
 		model = glm::scale(model, glm::vec3(cubeScale));
-		model2 = glm::translate(model2, glm::vec3(cubePosX2, cubePosY2, cubePosZ2));
-		model2 = glm::scale(model2, glm::vec3(cubeScale2));
+
 
 		glUniformMatrix4fv(modelLoc, 1, FALSE, glm::value_ptr(model));
 
@@ -184,7 +170,7 @@ int main()
 		glBindVertexArray(0);
 
 		glUniformMatrix4fv(modelLoc2, 1, FALSE, glm::value_ptr(model2));
-		glBindVertexArray(VAO2);
+	//	glBindVertexArray(VAO2);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glDrawArrays(GL_POINTS, 0, 36);
@@ -231,37 +217,28 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (key == GLFW_KEY_W) {
 		cubePosZ -= 0.1f;
-		cubePosZ2 -= 0.1f;
 	}
 	else if (key == GLFW_KEY_S) {
 		cubePosZ += 0.1f;
-		cubePosZ2 += 0.1f;
 	}
 	else if (key == GLFW_KEY_A) {
 		cubePosX -= 0.1f;
-		cubePosX2 -= 0.1f;
 	}
 	else if (key == GLFW_KEY_D) {
 		cubePosX += 0.1f;
-		cubePosX2 += 0.1f;
 	}
 	else if (key == GLFW_KEY_I) {
 		cubePosY += 0.1f;
-		cubePosY2 += 0.1f;
 	}
 	else if (key == GLFW_KEY_J) {
 		cubePosY -= 0.1f;
-		cubePosY2 -= 0.1f;
 	}
 
 	if (key == GLFW_KEY_LEFT_BRACKET) {
 		cubeScale -= 0.1f;
-		cubeScale2 -= 0.1f;
 	}
 	else if (key == GLFW_KEY_RIGHT_BRACKET) {
-		
 		cubeScale += 0.1f;
-		cubeScale2 += 0.1f;
 	}
 }
 
