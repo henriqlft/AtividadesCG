@@ -132,6 +132,7 @@ int main()
 
 	camera.initialize(&shader, width, height, 0.05f, 0.05f, -90.0f, glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(1.5f, 0.0f, 15.0f));
 
+	//Aspectos de luz
 	shader.setVec3("ka", ka[0], ka[1], ka[2]);
 	shader.setFloat("kd", 0.5);
 	shader.setVec3("ks", ks[0], ks[1], ks[2]);
@@ -487,7 +488,6 @@ std::vector<glm::vec3> generateControlPointsSet(const std::string& input) {
 	while (iss >> x >> y >> z) {
 		controlPoints.push_back(glm::vec3(x, y, z));
 	}
-
 	return controlPoints;
 }
 
